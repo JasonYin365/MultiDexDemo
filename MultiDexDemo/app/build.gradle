@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "multidex.jason.com.multidexdemo"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    dexOptions{
+        preDexLibraries=false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+afterEvaluate {
+    println("afterEvaluate")
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each {dx ->
+       def listFile = project.rootDir.absolutePath+'/app/maindexlist.txt'
+        println("root dir:"+project.rootDir.absolutePath)
+        println("dex task found :"+dx.name)
+        if(dx.additionalParameters == null){
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--multi-dex'
+        dx.additionalParameters += '--main-dex-list='+listFile
+        dx.additionalParameters += '--minimal-main-dex'
+    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'org.robolectric:shadows-multidex:3.3.1'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:support-annotations:25.2.0'
+    compile 'com.android.support:support-v13:25.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
+    testCompile 'junit:junit:4.12'
+}

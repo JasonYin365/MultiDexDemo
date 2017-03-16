@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="com.android.tools.analytics" />
+    <plugin id="com.android.tools.games" />
+    <plugin id="com.android.tools.idea.updater" />
+    <plugin id="com.android.tools.ndk" />
+    <plugin id="com.android.tools.ndk.workspace" />
+    <plugin id="com.google.appindexing" />
+    <plugin id="com.google.cluestick.studioclient" />
+    <plugin id="com.google.gct" />
+    <plugin id="com.google.gct.core" />
+    <plugin id="org.jetbrains.android" />
+    <plugin id="org.jetbrains.plugins.gradle" />
+  </component>
+</project>
